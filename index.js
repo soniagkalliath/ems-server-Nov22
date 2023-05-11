@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 4000
 
 server.use(cors())
 server.use(express.json())
+server.use("/uploads",express.static("./uploads"))
 server.use(router)
 
 server.get('/',(req,res)=>{
