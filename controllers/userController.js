@@ -55,3 +55,24 @@ exports.getuserdetail = async (req,res)=>{
         res.status(401).json(error)
     }
 }
+
+//editUser
+exports.editUser = async (req,res)=>{
+    const {id} = req.params
+    const {fname,lname,mobile,email,gender,location,status,user_profile} = req.body
+    //to get image url
+    const file = req.file? req.file.filename: user_profile
+
+    try{
+        const updatedUser = await users.findByIdAndUpdate({_id:id},{
+            fname,lname,email,mobile,gender,status,profile:file,location
+        },{
+            new:true
+        })
+        await updatedUser.save()
+        res.status(200).json(updatedUser)
+    }
+    catch(error){
+        res.status(401).json(error)
+    }
+}

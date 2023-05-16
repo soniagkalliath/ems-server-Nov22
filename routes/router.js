@@ -9,5 +9,7 @@ router.post('/employee/register',upload.single('user_profile'),userController.us
 router.get('/get-all-employees',userController.getallusers)
 //getuserdetails
 router.get('/employee/view/:id',userController.getuserdetail)
+//edituser
+router.put('/employee/edit/:id',upload.single('user_profile'),userController.editUser)
 
 module.exports = router
