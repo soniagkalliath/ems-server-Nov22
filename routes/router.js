@@ -11,5 +11,7 @@ router.get('/get-all-employees',userController.getallusers)
 router.get('/employee/view/:id',userController.getuserdetail)
 //edituser
 router.put('/employee/edit/:id',upload.single('user_profile'),userController.editUser)
+//deleteuser
+router.delete('/employee/deleteuser/:id',userController.deleteUser)
 
 module.exports = router

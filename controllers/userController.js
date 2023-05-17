@@ -29,8 +29,13 @@ exports.userRegister = async (req,res)=>{
 
 //get all users
 exports.getallusers = async (req,res)=>{
+    //get query parameter from req
+    const search = req.query.search
+    const query = {
+        fname:{$regex:search,$options:"i"}
+    }
     try{
-        const userdata = await users.find()
+        const userdata = await users.find(query)
         res.status(200).json(userdata)
     }
     catch(error){
@@ -71,6 +76,19 @@ exports.editUser = async (req,res)=>{
         })
         await updatedUser.save()
         res.status(200).json(updatedUser)
+    }
+    catch(error){
+        res.status(401).json(error)
+    }
+}
+
+//deleteUser
+exports.deleteUser = async (req,res)=>{
+    const {id} = req.params
+    try{
+        const removeUser = await users.findByIdAndDelete({_id:id})
+        console.log(removeUser);
+        res.status(200).json(removeUser)
     }
     catch(error){
         res.status(401).json(error)
